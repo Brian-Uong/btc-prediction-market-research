@@ -18,7 +18,7 @@ All three forecasts use the same rounds and checkpoint. The hybrid corrected 128
 
 Open **`round_decisions`** in Cloudflare D1 Studio. The BTC chart supplies the live direction at 10, 8, 6 and 4 minutes. The round view keeps the latest call separate from the original locked paper entry and its official result.
 
-At the November 17 afternoon review, the chart called 445 of 560 matched checkpoints correctly and the retired capped watcher called 440. Several checkpoints belong to the same round. On the first 15 officially graded six-minute hybrid comparisons the chart got 11 correct, the hybrid 10 and the market midpoint 10. The frozen hybrid continues as a research comparison. [Tracker changes and review queries](docs/replay.md#november-17-tracker-cleanup)
+At the November 17 afternoon review, 141 distinct rounds yielded 560 matched checkpoints. The chart called 445 correctly and the retired capped watcher called 440. On the first 15 officially graded six-minute hybrid comparisons the chart got 11 correct, the hybrid 10 and the market midpoint 10. The frozen hybrid continues as a research comparison. [Tracker changes and review queries](docs/replay.md#november-17-tracker-cleanup)
 
 ## Try it in VS Code
 
