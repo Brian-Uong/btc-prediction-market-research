@@ -14,6 +14,12 @@ In a historical walk-forward test, the hybrid model called **24,091 of 29,838 ro
 
 All three forecasts use the same rounds and checkpoint. The hybrid corrected 128 midpoint misses and reversed 112 correct calls. A 95% interval from resampling UTC days puts the accuracy difference between −0.05 and +0.15 percentage points. The hybrid remains a paper challenger. [Monthly and holdout results](backtest/six-minute/hybrid-results.json)
 
+## Live tracker
+
+Open **`round_decisions`** in Cloudflare D1 Studio. The BTC chart supplies the live direction at 10, 8, 6 and 4 minutes. The round view keeps the latest call separate from the original locked paper entry and its official result.
+
+At the November 17 afternoon review, the chart called 445 of 560 matched checkpoints correctly and the retired capped watcher called 440. Several checkpoints belong to the same round. On the first 15 officially graded six-minute hybrid comparisons the chart got 11 correct, the hybrid 10 and the market midpoint 10. The frozen hybrid continues as a research comparison. [Tracker changes and review queries](docs/replay.md#november-17-tracker-cleanup)
+
 ## Try it in VS Code
 
 Open the repository folder with Node.js 22 or newer installed. Run the first command for an offline demonstration with fictional prices or the second to follow current rounds using the public data feeds.

@@ -101,7 +101,7 @@ function printReport(report) {
   }
   const latest = rows.filter(r => !r.error).at(-1);
   if (latest) console.log('Latest valid round_call: ' + latest.side + ' (' + latest.left + '-minute checkpoint)');
-  if (report.hybrid) console.log('Six-minute hybrid v1: '+report.hybrid);
+  if (report.hybrid) console.log('Research only | six-minute hybrid v1: '+report.hybrid);
   if (report.sixPaper) console.log('Six-minute $50 paper screen: ' + report.sixPaper);
   if (!rows.length) console.log('First checkpoint at ' + clock(close - 600) + '.');
 }

@@ -37,6 +37,14 @@ The four-minute alternative is a separate exploratory strategy. Among 308 of the
 
 ## Prospective grading
 
-The scheduled Worker writes to a D1 binding named `DB`. The current fresh-install schema is `schema.sql`. The other root SQL upgrades target earlier journal versions. The local VS Code runner can reconstruct elapsed chart checkpoints using the currently available candles. The hosted journal retains the original capture, source timestamps and official outcome.
+The scheduled Worker writes to a D1 binding named `DB`. The current fresh-install schema is `schema.sql`. The local VS Code runner can reconstruct elapsed chart checkpoints using the currently available candles. The hosted journal retains the original capture, source timestamps and official outcome.
 
 Use `forward_midpoint.sql` in `backtest/six-minute/` for the separately frozen chart-versus-midpoint comparison and `hybrid_review.sql` for the hybrid. A missing six-minute book or a pending settlement stays visible in coverage. Each model is compared on the same seconds-to-close and distinct round. The locked eight-minute entry, the separate six-minute $50 experiment and the hybrid each have their own paper rules.
+
+## November 17 tracker cleanup
+
+Open `round_decisions` in D1 Studio for the latest chart direction, the separately locked entry, official settlement and paper P&L. Its six-minute paper columns show the independent $50 experiment. Four backing tables hold the original checkpoints, locked entries, hybrid observations and $50 paper ledger.
+
+The capped watcher, its agreement trial and its automatic recalibration were retired from new captures. Historical rows retain their original values. Use [historical matchup](../backtest/legacy_matchup.sql) to reconstruct the old standings and [chart accuracy](../backtest/chart_accuracy.sql) for checkpoint scores. The two frozen hybrid comparisons run directly against the captured records through [hybrid review](../backtest/six-minute/hybrid_review.sql).
+
+On an existing November 17 journal, deploy the chart-only Worker first, then apply [the cleanup migration](../migrations/2026-11-17-chart-only.sql). For a new journal, use the root schema. Earlier upgrades under `migrations/historical/` document earlier versions.

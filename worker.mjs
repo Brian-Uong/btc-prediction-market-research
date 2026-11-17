@@ -1,23 +1,11 @@
 const KALSHI = 'https://external-api.kalshi.com/trade-api/v2/markets';
 const COINBASE = 'https://api.coinbase.com/api/v3/brokerage/market/products/BTC-USD/candles';
-const COEFFICIENTS = {
-  4: [-0.12030338482416617, 0.8506103310625822, -0.5183379631391526, 0.96039323079072, 0.13174907670712124],
-  6: [-0.1968882952074821, 0.5432710617232901, -0.3500470785742486, 1.0759603126121873, 0.037074594818400954],
-  8: [-0.1588046004555575, 0.5837931397505581, -0.33057397509174513, 1.0335930201912877, 0.02791935455560988],
-  10: [-0.12950981985708304, 0.5291733453484132, -0.2710396904068699, 1.1451825598617165, -0.07172644322755699]
-};
-// One gross dollar at settlement. A 90-cent ask leaves 10 cents per winning contract.
-const MAX_ASK = .90;
-const PAYOUT_POLICY = 'min-win-10c';
-const SIX_MINUTE_MODEL = 'six-minute-observation-v1';
 const PRICE_FITS = {
   4: [0.011011155242991047, 0.601241178168646, 1.2298532960925468, 0.1284393899582682],
   6: [-0.10536618028479769, 0.5217297593621257, 1.0631894272600717, 0.01319105439953532],
   8: [-0.0815501766346952, 0.5458106427186011, 1.0613944278179865, 0.01394421187136076],
   10: [-0.05795932192494235, 0.5800192589964934, 1.0549556857672477, -0.052563642881360464]
 };
-const ORIGINAL = {model_id:'original',intercept:0,slope:1,weight:0};
-const REVIEW_SIZE = 384;
 const ptDate = new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',year:'numeric'});
 const ptTime = new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit',hour12:true});
 const clock = t => ptDate.format(t*1000)+' · '+ptTime.format(t*1000).replace(/\s/g,'').toLowerCase();
@@ -77,85 +65,42 @@ export function model(candles,at,target,bid,ask,left) {
   const inputs=[1,bound((btc-target)/fastHorizon,-8,8),bound((btc-anchor)/fastHorizon,-8,8),
     bound((btc-prices[57])/(fastVol*Math.sqrt(3)),-8,8)];
   const price_up=logistic(inputs.reduce((s,v,i)=>s+PRICE_FITS[left][i]*v,0));
-  if(!(bid>0 && bid<=ask && ask<1)) return {btc,price_up,midpoint:null,raw_up:null};
-  const horizon=vol*Math.sqrt(left-.5);
-  const midpoint=(bid+ask)/2;
-  const features=[logit(midpoint),bound((btc-target)/horizon,-8,8),bound((btc-anchor)/horizon,-8,8),bound((btc-prices[57])/(vol*Math.sqrt(3)),-8,8)];
-  const [intercept,...weights]=COEFFICIENTS[left];
-  const raw_up=logistic(features.reduce((s,v,i)=>s+weights[i]*v,intercept));
-  return {btc,midpoint,raw_up,price_up,hybrid_up:left===6 ? hybridProbability(inputs,midpoint,ask-bid) : null};
+  const midpoint = bid > 0 && bid <= ask && ask < 1 ? (bid + ask) / 2 : null;
+  const hybrid_up = left === 6 && midpoint !== null
+    ? hybridProbability(inputs, midpoint, ask - bid) : null;
+  return {btc, price_up, midpoint, hybrid_up};
 }
-export function decision(row,config) {
-  const adjusted = config.intercept===0 && config.slope===1 ? row.raw_up :
-    logistic(config.intercept+config.slope*logit(bound(row.raw_up,1e-12,1-1e-12)));
-  const p=(1-config.weight)*adjusted+config.weight*row.midpoint;
-  const lean=p>=.5?'Up':'Down', conf=Math.max(p,1-p);
-  const ask=lean==='Up'?row.up_ask:row.down_ask;
-  return {p,lean,probability:conf,ask,decision:ask!=null && ask<=MAX_ASK && conf>=.9 && conf>ask+1e-12?lean:'Pass'};
+
+function offer(price, size) {
+  const ask = Number(price);
+  return ask > 0 && ask < 1 && Number(size) >= 1 ? ask : null;
 }
-async function latestReview(env) {
-  const row=await env.DB.prepare(
-    'SELECT expiry,calibration_review FROM _checkpoint_data WHERE minutes_left=8 '+
-    'AND calibration_review IS NOT NULL ORDER BY expiry DESC LIMIT 1'
-  ).first();
-  if(!row) return null;
-  const {model_id,intercept,slope,weight}=JSON.parse(row.calibration_review);
-  return {end_expiry:row.expiry,model_id,intercept,slope,weight};
+
+// The original BTC-only threshold signal is separate from the locked round call.
+function chartSignal(side, confidence, ask, left, prior) {
+  const thresholdCall = ask === null ? 'No data'
+    : ask <= .90 && confidence >= .90 && confidence > ask + 1e-12 ? side : 'Pass';
+  if (left === 10 || (left === 4 && ['Up','Down'].includes(prior?.btc_decision))) return 'Watch';
+  if (left !== 6) return thresholdCall;
+  if (prior?.minutes_left !== 8 || prior.btc_decision !== 'Pass' || !prior.btc_lean) return 'Watch';
+  if (ask === null) return 'No data';
+  return prior.btc_lean === side ? thresholdCall : 'Pass';
 }
-function offer(price,size) { const p=Number(price); return p>0 && p<1 && Number(size)>=1?p:null; }
-function sixMinuteTrial(signal,priorLean) {
-  if(!priorLean) return null;
-  if(signal.ask==null) return 'No data';
-  return signal.lean===priorLean ? signal.decision : 'Pass';
-}
-function agreementSignal(d,priceUp) {
-  if(d.decision!=='Pass' || d.ask==null || d.ask>MAX_ASK || !Number.isFinite(priceUp)) return null;
-  const btcProbability=d.lean==='Up'?priceUp:1-priceUp;
-  const lowerEstimate=Math.min(d.probability,btcProbability);
-  return lowerEstimate>=.85 && lowerEstimate-d.ask>=.03-1e-12 ? d.lean : null;
-}
-async function agreementQualified(env,expiry) {
-  const {results}=await env.DB.prepare(
-    'SELECT agreement_call,ask,result,agreement_recheck_call,agreement_recheck_ask FROM _checkpoint_data '+
-    'WHERE minutes_left=8 AND agreement_call IS NOT NULL AND result IS NOT NULL AND expiry<? '+
-    'ORDER BY expiry DESC LIMIT 24'
-  ).bind(expiry).all();
-  if(results.length!==24) return false;
-  for(let i=0;i<24;i+=12){
-    let wins=0,recheckWins=0,gross=0,recheckGross=0;
-    for(const row of results.slice(i,i+12)){
-      if(!['Pass','Up','Down'].includes(row.agreement_recheck_call)) return false;
-      const hit=Number(row.result===row.agreement_call);
-      wins+=hit; gross+=hit-row.ask;
-      if(row.agreement_recheck_call!=='Pass'){
-        if(row.agreement_recheck_ask==null) return false;
-        const fallbackHit=Number(row.result===row.agreement_recheck_call);
-        recheckWins+=fallbackHit; recheckGross+=fallbackHit-row.agreement_recheck_ask;
-      }
-    }
-    if(wins<10 || wins<=recheckWins || gross<=Math.max(0,recheckGross)+1e-9) return false;
-  }
-  return true;
-}
+
 async function capture(at,left,env) {
   const expiry=at+60*left;
   if(await env.DB.prepare('SELECT 1 FROM _checkpoint_data WHERE expiry=? AND minutes_left=?').bind(expiry,left).first()) return;
   if(left===8 && await env.DB.prepare('SELECT 1 FROM _checkpoint_data WHERE expiry=? AND minutes_left=5').bind(expiry).first()) return;
-  let primary, challenger;
-  if(left===4 || left===6){
-    const prior=await env.DB.prepare(
-      'SELECT minutes_left,lean,decision,agreement_call,agreement_recheck_call,btc_lean,btc_decision '+
-      'FROM _checkpoint_data WHERE expiry=? AND minutes_left IN (5,8) ORDER BY minutes_left DESC LIMIT 1'
-    ).bind(expiry).first();
-    primary=prior;
-    if(prior) challenger={minutes_left:prior.minutes_left,lean:prior.btc_lean,decision:prior.btc_decision};
-  }
-  const priorPass=prior=>prior?.minutes_left===8 && prior.decision==='Pass' ? prior.lean : null;
-  const entered=prior=>['Up','Down'].includes(prior?.decision);
-  const compareRecheck=left===4 && primary?.agreement_call!=null && primary.agreement_recheck_call==null;
-  const comparison=()=>env.DB.prepare('UPDATE _checkpoint_data SET agreement_recheck_call=?,agreement_recheck_ask=? WHERE expiry=? AND minutes_left=8 AND agreement_recheck_call IS NULL');
-  const config=(left===8 && await latestReview(env)) || ORIGINAL;
-  const insert=env.DB.prepare('INSERT OR IGNORE INTO _checkpoint_data(expiry,minutes_left,round_pt,captured_at,ticker,decision,lean,probability,ask,btc,target,model_id,raw_up,midpoint,up_ask,down_ask,agreement_call,six_trial_call,detail,btc_captured_at,btc_ticker,btc_lean,btc_probability,btc_ask,btc_decision) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+  const prior = left === 4 || left === 6 ? await env.DB.prepare(
+    'SELECT minutes_left,btc_lean,btc_decision FROM _checkpoint_data ' +
+    'WHERE expiry=? AND minutes_left IN (5,8) ORDER BY minutes_left DESC LIMIT 1'
+  ).bind(expiry).first() : null;
+  const insert = env.DB.prepare(
+    'INSERT OR IGNORE INTO _checkpoint_data(expiry,minutes_left,round_pt,captured_at,ticker,' +
+    'decision,capped_recorded,btc,target,model_id,midpoint,up_ask,down_ask,btc_captured_at,' +
+    'btc_ticker,btc_lean,btc_probability,btc_ask,btc_decision) ' +
+    "VALUES(?,?,?,?,?,'Not recorded',0,?,?,?,?,?,?,?,?,?,?,?,?)"
+  );
   let reason='Scheduler arrived outside the 25-second checkpoint';
   for(let attempt=0;attempt<5 && now()<=at+25;attempt++){
     try{
@@ -179,38 +124,13 @@ async function capture(at,left,env) {
       const crossed=bid>0 && ask>0 && bid>ask;
       row.up_ask=fresh && !crossed ? offer(m.yes_ask_dollars,m.yes_ask_size_fp) : null;
       row.down_ask=fresh && !crossed ? offer(m.no_ask_dollars,m.yes_bid_size_fp) : null;
-      const d=row.raw_up==null ? {lean:null,probability:null,ask:null,decision:'No data'} : decision(row,config);
-      const independent=decision({...row,raw_up:row.price_up},ORIGINAL);
-      function checkpointCall(signal,prior) {
-        if(!signal.lean) return 'No data';
-        if(left===10 || (left===4 && entered(prior))) return 'Watch';
-        return signal.ask==null ? 'No data' : signal.decision;
-      }
-      let call=checkpointCall(d,primary), trialCall=checkpointCall(independent,challenger);
-      let modelId=config.model_id;
-      if(left===10) modelId='ten-minute watch';
-      if(left===6){
-        modelId=SIX_MINUTE_MODEL;
-        call=d.lean ? 'Watch' : 'No data';
-        trialCall=sixMinuteTrial(independent,priorPass(challenger)) ?? 'Watch';
-      }
-      if(left===4) modelId='four-minute-regular-v1';
-      const capturedAt=new Date(captured*1000).toISOString();
-      const writes=[];
-      const agreement=left===8?agreementSignal(d,row.price_up):null;
-      if(agreement && await agreementQualified(env,expiry)){
-        call=agreement;
-        modelId+='|agreement-85';
-      }
-      // Keep the original same-side comparison used by the eight-minute agreement trial.
-      if(compareRecheck) writes.push(comparison().bind(sixMinuteTrial(d,primary.lean) ?? 'No data',d.ask,expiry));
-      if(left===8) modelId='eight-minute-'+modelId;
-      if(left===8 || left===4) modelId+='|'+PAYOUT_POLICY;
-      const detail=call==='No data' ? (row.raw_up==null?'No fresh two-sided quote':'No executable ask') : null;
-      writes.push(insert.bind(expiry,left,clock(expiry),capturedAt,
-        m.ticker,call,d.lean,d.probability,d.ask,row.btc,target,modelId,
-        row.raw_up,row.midpoint,row.up_ask,row.down_ask,agreement,left===6?sixMinuteTrial(d,priorPass(primary)):null,detail,
-        capturedAt,m.ticker,independent.lean,independent.probability,independent.ask,trialCall));
+      const side = row.price_up >= .5 ? 'Up' : 'Down';
+      const confidence = Math.max(row.price_up, 1-row.price_up);
+      const chartAsk = side === 'Up' ? row.up_ask : row.down_ask;
+      const capturedAt = new Date(captured*1000).toISOString();
+      const writes = [insert.bind(expiry,left,clock(expiry),capturedAt,m.ticker,row.btc,target,
+        'btc-chart-v1',row.midpoint,row.up_ask,row.down_ask,capturedAt,m.ticker,side,confidence,
+        chartAsk,chartSignal(side,confidence,chartAsk,left,prior))];
       if (left===6 && expiry>=FIRST_HYBRID_EXPIRY && Number.isFinite(row.hybrid_up)) {
         const entry = hybridEntry(row.hybrid_up, row.up_ask, row.down_ask);
         const archive = env.DB.prepare(
@@ -227,10 +147,10 @@ async function capture(at,left,env) {
     }catch(e){ reason=String(e.message).slice(0,180); if(now()<at+24) await sleep(650); }
   }
   const capturedAt=new Date().toISOString();
-  const missed=[env.DB.prepare("INSERT OR IGNORE INTO _checkpoint_data(expiry,minutes_left,round_pt,captured_at,decision,detail,model_id,btc_captured_at,btc_decision) VALUES(?,?,?,?,'No data',?,?,?,'No data')")
-    .bind(expiry,left,clock(expiry),capturedAt,reason,left===6?SIX_MINUTE_MODEL:null,capturedAt)];
-  if(compareRecheck) missed.push(comparison().bind('No data',null,expiry));
-  await env.DB.batch(missed);
+  await env.DB.prepare(
+    'INSERT OR IGNORE INTO _checkpoint_data(expiry,minutes_left,round_pt,captured_at,decision,' +
+    "capped_recorded,detail,model_id,btc_captured_at,btc_decision) VALUES(?,?,?,?,'Not recorded',0,?,'btc-chart-v1',?,'No data')"
+  ).bind(expiry,left,clock(expiry),capturedAt,reason,capturedAt).run();
 }
 async function settle(env) {
   const rows=await env.DB.prepare(
@@ -250,81 +170,11 @@ async function settle(env) {
     } catch(e){console.warn('Settlement retry',row.ticker,String(e.message));}
   }
 }
-export function fit(rows) {
-  let intercept=0,slope=1;
-  const logs=rows.map(r=>[logit(bound(r.raw_up,1e-12,1-1e-12)),Number(r.result==='Up')]);
-  for(let step=0;step<80;step++){
-    let a=0,b=0;
-    for(let i=0;i<logs.length;i++){
-      const [x,y]=logs[i],res=logistic(intercept+slope*x)-y;
-      a+=res;b+=res*x;
-    }
-    intercept=bound(intercept-.25*(a/logs.length+.02*intercept),-.5,.5);
-    slope=bound(slope-.25*(b/logs.length+.02*(slope-1)),.65,1.5);
-  }
-  return {model_id:'recalibrated',intercept,slope,weight:0};
-}
-export function evaluate(rows,config) {
-  let brier=0,hits=0,entries=0,wins=0,gross=0;
-  for(const row of rows){
-    const d=decision(row,config),y=Number(row.result==='Up'),hit=Number(row.result===d.lean);
-    brier+=(d.p-y)**2;hits+=hit;
-    if(d.decision!=='Pass'){entries++;wins+=hit;gross+=hit-d.ask;}
-  }
-  return {brier:brier/rows.length,accuracy:hits/rows.length,entries,wins,hit_rate:entries?wins/entries:0,gross:Math.round(gross*10000)/10000};
-}
-export function select(train,test,current) {
-  const end=test[test.length-1].expiry;
-  const candidates=[ORIGINAL,fit(train),{...ORIGINAL,model_id:'market-blend',weight:.5}];
-  const baseline=evaluate(test,current);
-  const market=evaluate(test,{...ORIGINAL,weight:1});
-  const accepted=[];
-  const metrics={current:baseline,market};
-  for(const cfg of candidates){
-    const r=evaluate(test,cfg);metrics[cfg.model_id]=r;
-    if(r.brier+.001<=baseline.brier && r.accuracy>=baseline.accuracy &&
-       r.entries>=Math.max(25,.8*baseline.entries) && r.hit_rate>=Math.max(.9,baseline.hit_rate) &&
-       r.gross>0 && r.gross>=baseline.gross && r.brier<market.brier && r.accuracy>=market.accuracy)
-      accepted.push(cfg);
-  }
-  accepted.sort((a,b)=>metrics[a.model_id].brier-metrics[b.model_id].brier || a.model_id.localeCompare(b.model_id));
-  const chosen={...(accepted[0] || current)};
-  if(chosen.model_id==='recalibrated') chosen.model_id='cal-'+end;
-  return {chosen,metrics};
-}
-async function review(env) {
-  const previous=await latestReview(env);
-  const filter='minutes_left=8 AND result IS NOT NULL AND raw_up IS NOT NULL';
-  let last=previous?.end_expiry;
-  if (!last) {
-    const initial=await env.DB.prepare('SELECT expiry FROM _checkpoint_data WHERE '+filter+' ORDER BY expiry LIMIT 1 OFFSET 383').first();
-    if(!initial) return;
-    last=initial.expiry;
-  }
-  // Check just one indexed key before loading a full block.
-  const complete=await env.DB.prepare('SELECT expiry FROM _checkpoint_data WHERE '+filter+' AND expiry>? ORDER BY expiry LIMIT 1 OFFSET 383').bind(last).first();
-  if(!complete) return;
-  const cols='expiry,raw_up,midpoint,up_ask,down_ask,result';
-  const read='SELECT '+cols+' FROM _checkpoint_data WHERE '+filter;
-  const [training,validation]=await env.DB.batch([
-    env.DB.prepare(read+' AND expiry<=? ORDER BY expiry DESC LIMIT 2048').bind(last),
-    env.DB.prepare(read+' AND expiry>? AND expiry<=? ORDER BY expiry LIMIT 384').bind(last,complete.expiry)
-  ]);
-  const train=training.results.reverse(),test=validation.results;
-  if(train.length<REVIEW_SIZE || test.length!==REVIEW_SIZE) return;
-  const {chosen,metrics}=select(train,test,previous || ORIGINAL);
-  const {model_id,intercept,slope,weight}=chosen;
-  const record=JSON.stringify({model_id,intercept,slope,weight,train_end:last,metrics});
-  await env.DB.prepare(
-    'UPDATE _checkpoint_data SET calibration_review=? WHERE expiry=? AND minutes_left=8 '+
-    'AND calibration_review IS NULL'
-  ).bind(record,complete.expiry).run();
-}
 // Cron dispatch can arrive partway through a minute. Start one minute
 // early and fetch at the original checkpoint, keeping the 25-second cutoff.
 export async function dispatch(at,env,observe=capture,pause=sleep,readTime=now) {
   const offset=Math.floor(at/60)%15;
-  if(offset===2){await settle(env);await review(env);return;}
+  if(offset===2){await settle(env);return;}
   if(![4,6,8,9].includes(offset)) return; // 8/9 also cover a four-minute checkpoint during cron propagation.
   const roundStart=at-offset*60;
   for(const left of [10,8,6,4]){
