@@ -43,7 +43,7 @@ function checkpointReport(market, candles, asOf) {
   return { market, target, close, rows };
 }
 
-async function liveReport() {
+async function liveReport(details) {
   const listing = await readPublic(marketsURL, { series_ticker: 'KXBTC15M', status: 'open', limit: 10 });
   const time = now();
   let market = listing.markets?.find(m => {
@@ -72,7 +72,7 @@ async function liveReport() {
   if (now() >= close) throw new Error('The round closed during the request. Refresh for the next round.');
   const report = checkpointReport(market, candles, time);
   const chart = report.rows.at(-1);
-  if (chart?.left===6 && !chart.error && now()<=chart.at+25) {
+  if (details && chart?.left===6 && !chart.error && now()<=chart.at+25) {
     try {
       const snapshot = await readPublic(marketsURL+'/'+encodeURIComponent(market.ticker), {}, true);
       const quote = snapshot.data.market;
@@ -91,32 +91,49 @@ async function liveReport() {
   return report;
 }
 
-function printReport(report) {
+function printReport(report, details) {
   const { market, target, close, rows } = report;
-  console.log('\n' + market.ticker + '  |  Closes ' + clock(close) + '  |  Price to Beat $' + target.toFixed(2));
-  for (const row of rows) {
-    const label = clock(row.at) + '  |  ' + row.left + ' min left  |  ';
-    console.log(label + (row.error ? 'Unavailable (' + row.error + ')' :
-      row.side + ' ' + (100 * row.confidence).toFixed(2) + '%  |  BTC $' + row.btc.toFixed(2)));
+  const latest = rows.filter(row => !row.error).at(-1);
+  const lastAttempt = rows.at(-1);
+  console.log('');
+  if (latest) {
+    const age = latest === lastAttempt ? '' : ' · last valid';
+    console.log(`BTC forecast   ${latest.side.toUpperCase()} · ${(100 * latest.confidence).toFixed(1)}% model confidence`);
+    console.log(`Round closes   ${clock(close)} · forecast from the ${latest.left}m checkpoint${age}`);
+    console.log(`BTC at capture $${latest.btc.toFixed(2)} · target $${target.toFixed(2)}`);
+  } else {
+    console.log(rows.length ? 'BTC forecast   Unavailable' : 'BTC forecast   Waiting for first checkpoint');
+    console.log('Round closes   ' + clock(close));
+    if (lastAttempt) console.log(`${lastAttempt.left}m checkpoint unavailable · ${lastAttempt.error}`);
+    else console.log('First forecast ' + clock(close - 600));
   }
-  const latest = rows.filter(r => !r.error).at(-1);
-  if (latest) console.log('Latest valid round_call: ' + latest.side + ' (' + latest.left + '-minute checkpoint)');
-  if (report.hybrid) console.log('Research only | six-minute hybrid v1: '+report.hybrid);
-  if (report.sixPaper) console.log('Six-minute $50 paper screen: ' + report.sixPaper);
-  if (!rows.length) console.log('First checkpoint at ' + clock(close - 600) + '.');
+  if (!details) return;
+  console.log('\nCheckpoint details · ' + market.ticker);
+  for (const row of rows) {
+    const reading = row.error ? 'Unavailable (' + row.error + ')' :
+      row.side + ' ' + (100 * row.confidence).toFixed(1) + '% · BTC $' + row.btc.toFixed(2);
+    console.log(`${row.left}m · ${clock(row.at)} · ${reading}`);
+  }
+  if (report.hybrid) console.log('Research hybrid · ' + report.hybrid);
+  if (report.sixPaper) console.log('Independent $50 paper screen · ' + report.sixPaper);
 }
 
 async function main() {
-  const [mode, ...extra] = process.argv.slice(2);
-  if (extra.length || ![undefined, '--watch', '--once', '--demo', '--help'].includes(mode)) throw new Error('Usage: node run.mjs [--once | --watch | --demo | --help]');
+  const args = process.argv.slice(2);
+  const modes = args.filter(arg => arg !== '--details');
+  const mode = modes[0];
+  const details = args.includes('--details');
+  if (new Set(args).size !== args.length || modes.length > 1 ||
+      ![undefined, '--watch', '--once', '--demo', '--help'].includes(mode))
+    throw new Error('Usage: node run.mjs [--watch | --once | --demo | --help] [--details]');
   if (mode === '--help') {
-    console.log('node run.mjs          Follow live rounds until Ctrl+C\nnode run.mjs --once   Show the current round and exit\nnode run.mjs --watch  Follow checkpoints until Ctrl+C\nnode run.mjs --demo   Run a synthetic round offline');
+    console.log('node run.mjs            Follow live chart calls (Ctrl+C to stop)\nnode run.mjs --once     Show the current call and exit\nnode run.mjs --watch    Follow live chart calls\nnode run.mjs --demo     Run a fictional round offline\nAdd --details to see checkpoint history and available research signals.');
     return;
   }
   if (mode === '--demo') {
     const { default: sample } = await import('./backtest/demo-round.mjs');
     console.log('Offline demo using synthetic BTC candles');
-    printReport(checkpointReport(sample.market, sample.candles, Date.parse(sample.market.close_time) / 1000 - 1));
+    printReport(checkpointReport(sample.market, sample.candles, Date.parse(sample.market.close_time) / 1000 - 1), details);
     return;
   }
   const watching = mode !== '--once';
@@ -125,9 +142,9 @@ async function main() {
   do {
     let delay = 10;
     try {
-      const report = await liveReport();
-      const state = JSON.stringify([report.market.ticker, report.target, report.rows]);
-      if (state !== lastOutput) printReport(report);
+      const report = await liveReport(details);
+      const state = JSON.stringify([report.market.ticker, report.target, report.rows, report.hybrid, report.sixPaper]);
+      if (state !== lastOutput) printReport(report, details);
       lastOutput = state;
       const latest = report.rows.at(-1);
       const remaining = checkpoints.slice(report.rows.length);
