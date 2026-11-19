@@ -1,0 +1,805 @@
+{
+  "eligible_six_minute_rounds": 31607,
+  "first_expiry": 1765404000,
+  "last_expiry": 1794864600,
+  "embargo_days": 7,
+  "features": {
+    "refit": [
+      "strike_gap",
+      "opening_move",
+      "momentum"
+    ],
+    "last_candle": [
+      "strike_gap",
+      "opening_move",
+      "momentum",
+      "close_vs_candle"
+    ],
+    "range_vol_and_last_candle": [
+      "range_strike_gap",
+      "range_opening_move",
+      "range_momentum",
+      "range_close_vs_candle"
+    ]
+  },
+  "walk_forward": {
+    "rounds": 30045,
+    "utc_days": 320,
+    "spot_correct": 24209,
+    "models": {
+      "incumbent": {
+        "correct": 24172,
+        "brier": 0.137538
+      },
+      "refit": {
+        "correct": 24183,
+        "brier": 0.136052
+      },
+      "last_candle": {
+        "correct": 24177,
+        "brier": 0.136083,
+        "incumbent_comparison": {
+          "flipped_help": 393,
+          "flipped_hurt": 388,
+          "accuracy_change": 0.000166,
+          "brier_change": -0.001454,
+          "accuracy_change_day_95": [
+            -0.001693,
+            0.002024
+          ],
+          "brier_change_day_95": [
+            -0.001867,
+            -0.001037
+          ]
+        },
+        "refit_comparison": {
+          "flipped_help": 8,
+          "flipped_hurt": 14,
+          "accuracy_change": -0.0002,
+          "brier_change": 3.2e-05,
+          "accuracy_change_day_95": [
+            -0.000501,
+            0.0001
+          ],
+          "brier_change_day_95": [
+            7e-06,
+            5.8e-05
+          ]
+        }
+      },
+      "range_vol_and_last_candle": {
+        "correct": 24169,
+        "brier": 0.135899,
+        "incumbent_comparison": {
+          "flipped_help": 395,
+          "flipped_hurt": 398,
+          "accuracy_change": -0.0001,
+          "brier_change": -0.001639,
+          "accuracy_change_day_95": [
+            -0.002001,
+            0.001793
+          ],
+          "brier_change_day_95": [
+            -0.002056,
+            -0.001216
+          ]
+        },
+        "refit_comparison": {
+          "flipped_help": 9,
+          "flipped_hurt": 23,
+          "accuracy_change": -0.000466,
+          "brier_change": -0.000153,
+          "accuracy_change_day_95": [
+            -0.000831,
+            -0.0001
+          ],
+          "brier_change_day_95": [
+            -0.00023,
+            -7.7e-05
+          ]
+        }
+      }
+    }
+  },
+  "monthly_folds": [
+    {
+      "month": "2026-01",
+      "train_rounds": 1060,
+      "rounds": 2939,
+      "utc_days": 31,
+      "spot_correct": 2401,
+      "models": {
+        "incumbent": {
+          "correct": 2400,
+          "brier": 0.131966
+        },
+        "refit": {
+          "correct": 2388,
+          "brier": 0.12996
+        },
+        "last_candle": {
+          "correct": 2387,
+          "brier": 0.130055,
+          "incumbent_comparison": {
+            "flipped_help": 35,
+            "flipped_hurt": 48,
+            "accuracy_change": -0.004423,
+            "brier_change": -0.001911
+          },
+          "refit_comparison": {
+            "flipped_help": 2,
+            "flipped_hurt": 3,
+            "accuracy_change": -0.00034,
+            "brier_change": 9.5e-05
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2386,
+          "brier": 0.129974,
+          "incumbent_comparison": {
+            "flipped_help": 36,
+            "flipped_hurt": 50,
+            "accuracy_change": -0.004764,
+            "brier_change": -0.001993
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 3,
+            "accuracy_change": -0.000681,
+            "brier_change": 1.4e-05
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-02",
+      "train_rounds": 3829,
+      "rounds": 2618,
+      "utc_days": 28,
+      "spot_correct": 2103,
+      "models": {
+        "incumbent": {
+          "correct": 2109,
+          "brier": 0.138375
+        },
+        "refit": {
+          "correct": 2103,
+          "brier": 0.138305
+        },
+        "last_candle": {
+          "correct": 2103,
+          "brier": 0.138535,
+          "incumbent_comparison": {
+            "flipped_help": 20,
+            "flipped_hurt": 26,
+            "accuracy_change": -0.002292,
+            "brier_change": 0.00016
+          },
+          "refit_comparison": {
+            "flipped_help": 4,
+            "flipped_hurt": 4,
+            "accuracy_change": 0.0,
+            "brier_change": 0.00023
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2102,
+          "brier": 0.138429,
+          "incumbent_comparison": {
+            "flipped_help": 19,
+            "flipped_hurt": 26,
+            "accuracy_change": -0.002674,
+            "brier_change": 5.4e-05
+          },
+          "refit_comparison": {
+            "flipped_help": 4,
+            "flipped_hurt": 5,
+            "accuracy_change": -0.000382,
+            "brier_change": 0.000124
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-03",
+      "train_rounds": 6490,
+      "rounds": 2874,
+      "utc_days": 31,
+      "spot_correct": 2329,
+      "models": {
+        "incumbent": {
+          "correct": 2314,
+          "brier": 0.136147
+        },
+        "refit": {
+          "correct": 2316,
+          "brier": 0.1344
+        },
+        "last_candle": {
+          "correct": 2315,
+          "brier": 0.134411,
+          "incumbent_comparison": {
+            "flipped_help": 32,
+            "flipped_hurt": 31,
+            "accuracy_change": 0.000348,
+            "brier_change": -0.001736
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 2,
+            "accuracy_change": -0.000348,
+            "brier_change": 1.1e-05
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2314,
+          "brier": 0.13418,
+          "incumbent_comparison": {
+            "flipped_help": 32,
+            "flipped_hurt": 32,
+            "accuracy_change": 0.0,
+            "brier_change": -0.001967
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 3,
+            "accuracy_change": -0.000696,
+            "brier_change": -0.00022
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-04",
+      "train_rounds": 9334,
+      "rounds": 2801,
+      "utc_days": 30,
+      "spot_correct": 2264,
+      "models": {
+        "incumbent": {
+          "correct": 2251,
+          "brier": 0.138495
+        },
+        "refit": {
+          "correct": 2270,
+          "brier": 0.136634
+        },
+        "last_candle": {
+          "correct": 2268,
+          "brier": 0.136646,
+          "incumbent_comparison": {
+            "flipped_help": 40,
+            "flipped_hurt": 23,
+            "accuracy_change": 0.006069,
+            "brier_change": -0.001849
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 2,
+            "accuracy_change": -0.000714,
+            "brier_change": 1.2e-05
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2267,
+          "brier": 0.136421,
+          "incumbent_comparison": {
+            "flipped_help": 40,
+            "flipped_hurt": 24,
+            "accuracy_change": 0.005712,
+            "brier_change": -0.002074
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 3,
+            "accuracy_change": -0.001071,
+            "brier_change": -0.000213
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-05",
+      "train_rounds": 12144,
+      "rounds": 2860,
+      "utc_days": 31,
+      "spot_correct": 2317,
+      "models": {
+        "incumbent": {
+          "correct": 2319,
+          "brier": 0.134406
+        },
+        "refit": {
+          "correct": 2317,
+          "brier": 0.13272
+        },
+        "last_candle": {
+          "correct": 2317,
+          "brier": 0.132728,
+          "incumbent_comparison": {
+            "flipped_help": 39,
+            "flipped_hurt": 41,
+            "accuracy_change": -0.000699,
+            "brier_change": -0.001679
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 0,
+            "accuracy_change": 0.0,
+            "brier_change": 8e-06
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2315,
+          "brier": 0.13242,
+          "incumbent_comparison": {
+            "flipped_help": 39,
+            "flipped_hurt": 43,
+            "accuracy_change": -0.001399,
+            "brier_change": -0.001986
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 2,
+            "accuracy_change": -0.000699,
+            "brier_change": -0.000299
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-06",
+      "train_rounds": 15003,
+      "rounds": 2812,
+      "utc_days": 30,
+      "spot_correct": 2316,
+      "models": {
+        "incumbent": {
+          "correct": 2318,
+          "brier": 0.128386
+        },
+        "refit": {
+          "correct": 2308,
+          "brier": 0.125871
+        },
+        "last_candle": {
+          "correct": 2308,
+          "brier": 0.125875,
+          "incumbent_comparison": {
+            "flipped_help": 15,
+            "flipped_hurt": 25,
+            "accuracy_change": -0.003556,
+            "brier_change": -0.002511
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 0,
+            "accuracy_change": 0.0,
+            "brier_change": 4e-06
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2309,
+          "brier": 0.12579,
+          "incumbent_comparison": {
+            "flipped_help": 16,
+            "flipped_hurt": 25,
+            "accuracy_change": -0.003201,
+            "brier_change": -0.002596
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 0,
+            "accuracy_change": 0.000356,
+            "brier_change": -8.1e-05
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-07",
+      "train_rounds": 17807,
+      "rounds": 2924,
+      "utc_days": 31,
+      "spot_correct": 2367,
+      "models": {
+        "incumbent": {
+          "correct": 2351,
+          "brier": 0.13518
+        },
+        "refit": {
+          "correct": 2370,
+          "brier": 0.132406
+        },
+        "last_candle": {
+          "correct": 2370,
+          "brier": 0.132409,
+          "incumbent_comparison": {
+            "flipped_help": 44,
+            "flipped_hurt": 25,
+            "accuracy_change": 0.006498,
+            "brier_change": -0.002772
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 0,
+            "accuracy_change": 0.0,
+            "brier_change": 2e-06
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2369,
+          "brier": 0.132048,
+          "incumbent_comparison": {
+            "flipped_help": 44,
+            "flipped_hurt": 26,
+            "accuracy_change": 0.006156,
+            "brier_change": -0.003132
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 1,
+            "accuracy_change": -0.000342,
+            "brier_change": -0.000358
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-08",
+      "train_rounds": 20727,
+      "rounds": 2938,
+      "utc_days": 31,
+      "spot_correct": 2351,
+      "models": {
+        "incumbent": {
+          "correct": 2360,
+          "brier": 0.139246
+        },
+        "refit": {
+          "correct": 2368,
+          "brier": 0.136522
+        },
+        "last_candle": {
+          "correct": 2368,
+          "brier": 0.136524,
+          "incumbent_comparison": {
+            "flipped_help": 46,
+            "flipped_hurt": 38,
+            "accuracy_change": 0.002723,
+            "brier_change": -0.002722
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 0,
+            "accuracy_change": 0.0,
+            "brier_change": 2e-06
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2367,
+          "brier": 0.136282,
+          "incumbent_comparison": {
+            "flipped_help": 47,
+            "flipped_hurt": 40,
+            "accuracy_change": 0.002383,
+            "brier_change": -0.002963
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 2,
+            "accuracy_change": -0.00034,
+            "brier_change": -0.00024
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-09",
+      "train_rounds": 23664,
+      "rounds": 2848,
+      "utc_days": 30,
+      "spot_correct": 2275,
+      "models": {
+        "incumbent": {
+          "correct": 2267,
+          "brier": 0.142249
+        },
+        "refit": {
+          "correct": 2274,
+          "brier": 0.141719
+        },
+        "last_candle": {
+          "correct": 2273,
+          "brier": 0.141721,
+          "incumbent_comparison": {
+            "flipped_help": 52,
+            "flipped_hurt": 46,
+            "accuracy_change": 0.002107,
+            "brier_change": -0.000528
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 1,
+            "accuracy_change": -0.000351,
+            "brier_change": 2e-06
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2273,
+          "brier": 0.141622,
+          "incumbent_comparison": {
+            "flipped_help": 52,
+            "flipped_hurt": 46,
+            "accuracy_change": 0.002107,
+            "brier_change": -0.000628
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 1,
+            "accuracy_change": -0.000351,
+            "brier_change": -9.8e-05
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-10",
+      "train_rounds": 26512,
+      "rounds": 2928,
+      "utc_days": 31,
+      "spot_correct": 2305,
+      "models": {
+        "incumbent": {
+          "correct": 2304,
+          "brier": 0.146925
+        },
+        "refit": {
+          "correct": 2293,
+          "brier": 0.146865
+        },
+        "last_candle": {
+          "correct": 2294,
+          "brier": 0.14685,
+          "incumbent_comparison": {
+            "flipped_help": 53,
+            "flipped_hurt": 63,
+            "accuracy_change": -0.003415,
+            "brier_change": -7.5e-05
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 0,
+            "accuracy_change": 0.000342,
+            "brier_change": -1.5e-05
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 2292,
+          "brier": 0.14667,
+          "incumbent_comparison": {
+            "flipped_help": 52,
+            "flipped_hurt": 64,
+            "accuracy_change": -0.004098,
+            "brier_change": -0.000255
+          },
+          "refit_comparison": {
+            "flipped_help": 1,
+            "flipped_hurt": 2,
+            "accuracy_change": -0.000342,
+            "brier_change": -0.000195
+          }
+        }
+      }
+    },
+    {
+      "month": "2026-11",
+      "train_rounds": 29444,
+      "rounds": 1503,
+      "utc_days": 16,
+      "spot_correct": 1181,
+      "models": {
+        "incumbent": {
+          "correct": 1179,
+          "brier": 0.144966
+        },
+        "refit": {
+          "correct": 1176,
+          "brier": 0.145866
+        },
+        "last_candle": {
+          "correct": 1174,
+          "brier": 0.145867,
+          "incumbent_comparison": {
+            "flipped_help": 17,
+            "flipped_hurt": 22,
+            "accuracy_change": -0.003327,
+            "brier_change": 0.000901
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 2,
+            "accuracy_change": -0.001331,
+            "brier_change": 1e-06
+          }
+        },
+        "range_vol_and_last_candle": {
+          "correct": 1175,
+          "brier": 0.145832,
+          "incumbent_comparison": {
+            "flipped_help": 18,
+            "flipped_hurt": 22,
+            "accuracy_change": -0.002661,
+            "brier_change": 0.000866
+          },
+          "refit_comparison": {
+            "flipped_help": 0,
+            "flipped_hurt": 1,
+            "accuracy_change": -0.000665,
+            "brier_change": -3.4e-05
+          }
+        }
+      }
+    }
+  ],
+  "fixed_last_fifth": {
+    "cutoff": 1789059600,
+    "train_rounds": 24580,
+    "rounds": 6363,
+    "utc_days": 68,
+    "spot_correct": 5033,
+    "models": {
+      "incumbent": {
+        "correct": 5021,
+        "brier": 0.144803
+      },
+      "refit": {
+        "correct": 5011,
+        "brier": 0.144788
+      },
+      "last_candle": {
+        "correct": 5012,
+        "brier": 0.144785,
+        "incumbent_comparison": {
+          "flipped_help": 108,
+          "flipped_hurt": 117,
+          "accuracy_change": -0.001414,
+          "brier_change": -1.8e-05,
+          "accuracy_change_day_95": [
+            -0.006003,
+            0.003521
+          ],
+          "brier_change_day_95": [
+            -0.000973,
+            0.000941
+          ]
+        },
+        "refit_comparison": {
+          "flipped_help": 2,
+          "flipped_hurt": 1,
+          "accuracy_change": 0.000157,
+          "brier_change": -3e-06,
+          "accuracy_change_day_95": [
+            -0.000317,
+            0.000776
+          ],
+          "brier_change_day_95": [
+            -2.2e-05,
+            1.4e-05
+          ]
+        }
+      },
+      "range_vol_and_last_candle": {
+        "correct": 5011,
+        "brier": 0.14465,
+        "incumbent_comparison": {
+          "flipped_help": 107,
+          "flipped_hurt": 117,
+          "accuracy_change": -0.001572,
+          "brier_change": -0.000153,
+          "accuracy_change_day_95": [
+            -0.006317,
+            0.003445
+          ],
+          "brier_change_day_95": [
+            -0.001096,
+            0.000823
+          ]
+        },
+        "refit_comparison": {
+          "flipped_help": 2,
+          "flipped_hurt": 2,
+          "accuracy_change": 0.0,
+          "brier_change": -0.000138,
+          "accuracy_change_day_95": [
+            -0.000629,
+            0.00063
+          ],
+          "brier_change_day_95": [
+            -0.000288,
+            4e-06
+          ]
+        }
+      }
+    }
+  },
+  "after_incumbent_training": {
+    "rounds": 732,
+    "utc_days": 8,
+    "spot_correct": 586,
+    "models": {
+      "incumbent": {
+        "correct": 584,
+        "brier": 0.135389
+      },
+      "refit": {
+        "correct": 585,
+        "brier": 0.134165
+      },
+      "last_candle": {
+        "correct": 584,
+        "brier": 0.134199,
+        "incumbent_comparison": {
+          "flipped_help": 12,
+          "flipped_hurt": 12,
+          "accuracy_change": 0.0,
+          "brier_change": -0.001189,
+          "accuracy_change_day_95": [
+            -0.012588,
+            0.01087
+          ],
+          "brier_change_day_95": [
+            -0.003074,
+            0.000464
+          ]
+        },
+        "refit_comparison": {
+          "flipped_help": 0,
+          "flipped_hurt": 1,
+          "accuracy_change": -0.001366,
+          "brier_change": 3.4e-05,
+          "accuracy_change_day_95": [
+            -0.004208,
+            0.0
+          ],
+          "brier_change_day_95": [
+            -6.2e-05,
+            0.000122
+          ]
+        }
+      },
+      "range_vol_and_last_candle": {
+        "correct": 584,
+        "brier": 0.134293,
+        "incumbent_comparison": {
+          "flipped_help": 12,
+          "flipped_hurt": 12,
+          "accuracy_change": 0.0,
+          "brier_change": -0.001096,
+          "accuracy_change_day_95": [
+            -0.012588,
+            0.01087
+          ],
+          "brier_change_day_95": [
+            -0.002827,
+            0.000428
+          ]
+        },
+        "refit_comparison": {
+          "flipped_help": 0,
+          "flipped_hurt": 1,
+          "accuracy_change": -0.001366,
+          "brier_change": 0.000127,
+          "accuracy_change_day_95": [
+            -0.004208,
+            0.0
+          ],
+          "brier_change_day_95": [
+            -0.000106,
+            0.000359
+          ]
+        }
+      }
+    }
+  }
+}

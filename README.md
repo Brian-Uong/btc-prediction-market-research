@@ -38,7 +38,7 @@ In a historical walk-forward test, the hybrid model called **24,091 of 29,838 ro
 
 All three forecasts use the same rounds and checkpoint. The hybrid corrected 128 midpoint misses and reversed 112 correct calls. A 95% interval from resampling UTC days puts the accuracy difference between −0.05 and +0.15 percentage points. The hybrid remains a paper challenger. [Monthly and holdout results](backtest/six-minute/hybrid-results.json)
 
-At the November 17 afternoon review, 141 distinct rounds yielded 560 matched checkpoints. The chart called 445 correctly and the retired capped watcher called 440. On the first 15 officially graded six-minute hybrid comparisons the chart got 11 correct, the hybrid 10 and the market midpoint 10. The frozen hybrid continues as a research comparison. [Tracker changes and review queries](docs/replay.md#november-17-tracker-cleanup)
+Through November 18 at 11:30 p.m. Pacific, the live six-minute chart called **227 of 276** officially settled rounds correctly. Taking the side BTC was already on relative to the target got **230 of the same 276**. In the separate eight-minute paper ledger, 244 priced entries returned **−$2.22 before fees**. Three chart refinements were tested on the historical archive. None earned a change to the live forecast. [Checkpoint scores and refinement tests](docs/replay.md#november-18-chart-review)
 
 ## From prices to a graded forecast
 

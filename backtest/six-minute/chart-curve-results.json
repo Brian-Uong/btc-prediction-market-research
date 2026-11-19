@@ -1,0 +1,2156 @@
+{
+  "feature_order": [
+    "strike_gap",
+    "opening_move",
+    "momentum"
+  ],
+  "embargo_days": 7,
+  "holdout_start": 1789059600,
+  "incumbent_fit_end": 1794191400,
+  "archive_rounds": 31892,
+  "distinct_walk_forward_rounds": 30067,
+  "walk_forward": {
+    "10": {
+      "rounds": 30052,
+      "utc_days": 320,
+      "scores": {
+        "chart_up": {
+          "correct": 21222,
+          "brier": 0.190235
+        },
+        "linear": {
+          "correct": 21317,
+          "brier": 0.189739
+        },
+        "asinh": {
+          "correct": 21285,
+          "brier": 0.189954
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 481,
+          "hurt": 418,
+          "delta_brier": -0.000281,
+          "day_block_95": {
+            "accuracy": [
+              -1e-06,
+              0.004098
+            ],
+            "brier": [
+              -0.000621,
+              7.5e-05
+            ]
+          }
+        },
+        "linear": {
+          "helped": 44,
+          "hurt": 76,
+          "delta_brier": 0.000215,
+          "day_block_95": {
+            "accuracy": [
+              -0.001735,
+              -0.0004
+            ],
+            "brier": [
+              0.000115,
+              0.000313
+            ]
+          }
+        }
+      }
+    },
+    "8": {
+      "rounds": 30050,
+      "utc_days": 320,
+      "scores": {
+        "chart_up": {
+          "correct": 22815,
+          "brier": 0.16352
+        },
+        "linear": {
+          "correct": 22848,
+          "brier": 0.162456
+        },
+        "asinh": {
+          "correct": 22849,
+          "brier": 0.162612
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 419,
+          "hurt": 385,
+          "delta_brier": -0.000908,
+          "day_block_95": {
+            "accuracy": [
+              -0.000568,
+              0.002876
+            ],
+            "brier": [
+              -0.001343,
+              -0.000485
+            ]
+          }
+        },
+        "linear": {
+          "helped": 57,
+          "hurt": 56,
+          "delta_brier": 0.000156,
+          "day_block_95": {
+            "accuracy": [
+              -0.000667,
+              0.000703
+            ],
+            "brier": [
+              2.2e-05,
+              0.000289
+            ]
+          }
+        }
+      }
+    },
+    "6": {
+      "rounds": 30045,
+      "utc_days": 320,
+      "scores": {
+        "chart_up": {
+          "correct": 24172,
+          "brier": 0.137538
+        },
+        "linear": {
+          "correct": 24183,
+          "brier": 0.136052
+        },
+        "asinh": {
+          "correct": 24200,
+          "brier": 0.136266
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 375,
+          "hurt": 347,
+          "delta_brier": -0.001272,
+          "day_block_95": {
+            "accuracy": [
+              -0.000931,
+              0.002692
+            ],
+            "brier": [
+              -0.001785,
+              -0.000765
+            ]
+          }
+        },
+        "linear": {
+          "helped": 51,
+          "hurt": 34,
+          "delta_brier": 0.000214,
+          "day_block_95": {
+            "accuracy": [
+              -3.3e-05,
+              0.001163
+            ],
+            "brier": [
+              6.1e-05,
+              0.000367
+            ]
+          }
+        }
+      },
+      "six_minute_entry_replay": {
+        "chart_up": {
+          "paired": 29838,
+          "entries": 93,
+          "wins": 29,
+          "utc_entry_days": 58,
+          "net": -8.37,
+          "one_cent_worse": -9.3
+        },
+        "linear": {
+          "paired": 29838,
+          "entries": 59,
+          "wins": 18,
+          "utc_entry_days": 38,
+          "net": -6.42,
+          "one_cent_worse": -7.01
+        },
+        "asinh": {
+          "paired": 29838,
+          "entries": 72,
+          "wins": 23,
+          "utc_entry_days": 46,
+          "net": -7.49,
+          "one_cent_worse": -8.21
+        }
+      }
+    },
+    "4": {
+      "rounds": 30050,
+      "utc_days": 320,
+      "scores": {
+        "chart_up": {
+          "correct": 25627,
+          "brier": 0.104515
+        },
+        "linear": {
+          "correct": 25661,
+          "brier": 0.104077
+        },
+        "asinh": {
+          "correct": 25659,
+          "brier": 0.104435
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 230,
+          "hurt": 198,
+          "delta_brier": -8.1e-05,
+          "day_block_95": {
+            "accuracy": [
+              -0.000333,
+              0.002484
+            ],
+            "brier": [
+              -0.000462,
+              0.000289
+            ]
+          }
+        },
+        "linear": {
+          "helped": 33,
+          "hurt": 35,
+          "delta_brier": 0.000357,
+          "day_block_95": {
+            "accuracy": [
+              -0.000564,
+              0.000434
+            ],
+            "brier": [
+              0.000193,
+              0.000518
+            ]
+          }
+        }
+      }
+    }
+  },
+  "fixed_holdout": {
+    "10": {
+      "rounds": 6363,
+      "utc_days": 68,
+      "scores": {
+        "chart_up": {
+          "correct": 4509,
+          "brier": 0.190738
+        },
+        "linear": {
+          "correct": 4505,
+          "brier": 0.191154
+        },
+        "asinh": {
+          "correct": 4507,
+          "brier": 0.191409
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 103,
+          "hurt": 105,
+          "delta_brier": 0.000672,
+          "day_block_95": {
+            "accuracy": [
+              -0.004498,
+              0.003578
+            ],
+            "brier": [
+              -8.5e-05,
+              0.001443
+            ]
+          }
+        },
+        "linear": {
+          "helped": 13,
+          "hurt": 11,
+          "delta_brier": 0.000255,
+          "day_block_95": {
+            "accuracy": [
+              -0.001114,
+              0.001888
+            ],
+            "brier": [
+              5.4e-05,
+              0.000467
+            ]
+          }
+        }
+      }
+    },
+    "8": {
+      "rounds": 6363,
+      "utc_days": 68,
+      "scores": {
+        "chart_up": {
+          "correct": 4767,
+          "brier": 0.168199
+        },
+        "linear": {
+          "correct": 4749,
+          "brier": 0.168431
+        },
+        "asinh": {
+          "correct": 4751,
+          "brier": 0.168914
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 88,
+          "hurt": 104,
+          "delta_brier": 0.000716,
+          "day_block_95": {
+            "accuracy": [
+              -0.006671,
+              0.001736
+            ],
+            "brier": [
+              -0.000257,
+              0.001704
+            ]
+          }
+        },
+        "linear": {
+          "helped": 6,
+          "hurt": 4,
+          "delta_brier": 0.000484,
+          "day_block_95": {
+            "accuracy": [
+              -0.00064,
+              0.001259
+            ],
+            "brier": [
+              0.000191,
+              0.000778
+            ]
+          }
+        }
+      }
+    },
+    "6": {
+      "rounds": 6363,
+      "utc_days": 68,
+      "scores": {
+        "chart_up": {
+          "correct": 5021,
+          "brier": 0.144803
+        },
+        "linear": {
+          "correct": 5011,
+          "brier": 0.144788
+        },
+        "asinh": {
+          "correct": 5017,
+          "brier": 0.145517
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 103,
+          "hurt": 107,
+          "delta_brier": 0.000714,
+          "day_block_95": {
+            "accuracy": [
+              -0.0051,
+              0.004162
+            ],
+            "brier": [
+              -0.000448,
+              0.001892
+            ]
+          }
+        },
+        "linear": {
+          "helped": 13,
+          "hurt": 7,
+          "delta_brier": 0.000729,
+          "day_block_95": {
+            "accuracy": [
+              -0.000466,
+              0.002337
+            ],
+            "brier": [
+              0.000398,
+              0.001058
+            ]
+          }
+        }
+      },
+      "six_minute_entry_replay": {
+        "chart_up": {
+          "paired": 6363,
+          "entries": 19,
+          "wins": 4,
+          "utc_entry_days": 10,
+          "net": -4.01,
+          "one_cent_worse": -4.2
+        },
+        "linear": {
+          "paired": 6363,
+          "entries": 15,
+          "wins": 4,
+          "utc_entry_days": 8,
+          "net": -2.52,
+          "one_cent_worse": -2.67
+        },
+        "asinh": {
+          "paired": 6363,
+          "entries": 15,
+          "wins": 4,
+          "utc_entry_days": 8,
+          "net": -2.58,
+          "one_cent_worse": -2.73
+        }
+      }
+    },
+    "4": {
+      "rounds": 6361,
+      "utc_days": 68,
+      "scores": {
+        "chart_up": {
+          "correct": 5324,
+          "brier": 0.114975
+        },
+        "linear": {
+          "correct": 5311,
+          "brier": 0.115593
+        },
+        "asinh": {
+          "correct": 5309,
+          "brier": 0.116444
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 35,
+          "hurt": 50,
+          "delta_brier": 0.001469,
+          "day_block_95": {
+            "accuracy": [
+              -0.005572,
+              0.000789
+            ],
+            "brier": [
+              0.000656,
+              0.002327
+            ]
+          }
+        },
+        "linear": {
+          "helped": 5,
+          "hurt": 7,
+          "delta_brier": 0.00085,
+          "day_block_95": {
+            "accuracy": [
+              -0.001243,
+              0.00048
+            ],
+            "brier": [
+              0.000449,
+              0.001257
+            ]
+          }
+        }
+      }
+    }
+  },
+  "post_incumbent_training": {
+    "10": {
+      "rounds": 732,
+      "utc_days": 8,
+      "scores": {
+        "chart_up": {
+          "correct": 528,
+          "brier": 0.183155
+        },
+        "linear": {
+          "correct": 528,
+          "brier": 0.183363
+        },
+        "asinh": {
+          "correct": 527,
+          "brier": 0.183576
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 14,
+          "hurt": 15,
+          "delta_brier": 0.000421,
+          "day_block_95": {
+            "accuracy": [
+              -0.013793,
+              0.009333
+            ],
+            "brier": [
+              -0.00147,
+              0.002442
+            ]
+          }
+        },
+        "linear": {
+          "helped": 2,
+          "hurt": 3,
+          "delta_brier": 0.000213,
+          "day_block_95": {
+            "accuracy": [
+              -0.008075,
+              0.004132
+            ],
+            "brier": [
+              -8.1e-05,
+              0.000563
+            ]
+          }
+        }
+      }
+    },
+    "8": {
+      "rounds": 732,
+      "utc_days": 8,
+      "scores": {
+        "chart_up": {
+          "correct": 557,
+          "brier": 0.160278
+        },
+        "linear": {
+          "correct": 552,
+          "brier": 0.159689
+        },
+        "asinh": {
+          "correct": 550,
+          "brier": 0.160743
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 8,
+          "hurt": 15,
+          "delta_brier": 0.000465,
+          "day_block_95": {
+            "accuracy": [
+              -0.01683,
+              -0.001337
+            ],
+            "brier": [
+              -0.001869,
+              0.003245
+            ]
+          }
+        },
+        "linear": {
+          "helped": 0,
+          "hurt": 2,
+          "delta_brier": 0.001054,
+          "day_block_95": {
+            "accuracy": [
+              -0.006649,
+              0.0
+            ],
+            "brier": [
+              0.000574,
+              0.001594
+            ]
+          }
+        }
+      }
+    },
+    "6": {
+      "rounds": 732,
+      "utc_days": 8,
+      "scores": {
+        "chart_up": {
+          "correct": 584,
+          "brier": 0.135389
+        },
+        "linear": {
+          "correct": 585,
+          "brier": 0.134165
+        },
+        "asinh": {
+          "correct": 584,
+          "brier": 0.134977
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 11,
+          "hurt": 11,
+          "delta_brier": -0.000412,
+          "day_block_95": {
+            "accuracy": [
+              -0.010699,
+              0.009473
+            ],
+            "brier": [
+              -0.002176,
+              0.001297
+            ]
+          }
+        },
+        "linear": {
+          "helped": 0,
+          "hurt": 1,
+          "delta_brier": 0.000811,
+          "day_block_95": {
+            "accuracy": [
+              -0.004132,
+              0.0
+            ],
+            "brier": [
+              0.000212,
+              0.00151
+            ]
+          }
+        }
+      },
+      "six_minute_entry_replay": {
+        "chart_up": {
+          "paired": 732,
+          "entries": 0,
+          "wins": 0,
+          "utc_entry_days": 0,
+          "net": 0.0,
+          "one_cent_worse": 0.0
+        },
+        "linear": {
+          "paired": 732,
+          "entries": 0,
+          "wins": 0,
+          "utc_entry_days": 0,
+          "net": 0.0,
+          "one_cent_worse": 0.0
+        },
+        "asinh": {
+          "paired": 732,
+          "entries": 0,
+          "wins": 0,
+          "utc_entry_days": 0,
+          "net": 0.0,
+          "one_cent_worse": 0.0
+        }
+      }
+    },
+    "4": {
+      "rounds": 731,
+      "utc_days": 8,
+      "scores": {
+        "chart_up": {
+          "correct": 615,
+          "brier": 0.103141
+        },
+        "linear": {
+          "correct": 615,
+          "brier": 0.10347
+        },
+        "asinh": {
+          "correct": 616,
+          "brier": 0.104622
+        }
+      },
+      "asinh_minus_baseline": {
+        "chart_up": {
+          "helped": 3,
+          "hurt": 2,
+          "delta_brier": 0.001481,
+          "day_block_95": {
+            "accuracy": [
+              -0.004184,
+              0.006748
+            ],
+            "brier": [
+              -0.000656,
+              0.003675
+            ]
+          }
+        },
+        "linear": {
+          "helped": 2,
+          "hurt": 1,
+          "delta_brier": 0.001152,
+          "day_block_95": {
+            "accuracy": [
+              0.0,
+              0.004178
+            ],
+            "brier": [
+              -2.6e-05,
+              0.002239
+            ]
+          }
+        }
+      }
+    }
+  },
+  "months": {
+    "10": [
+      {
+        "month": "2026-01",
+        "training_rounds": 1060,
+        "rounds": 2939,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2110,
+            "brier": 0.185035
+          },
+          "linear": {
+            "correct": 2124,
+            "brier": 0.184159
+          },
+          "asinh": {
+            "correct": 2123,
+            "brier": 0.184344
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 57,
+            "hurt": 44,
+            "delta_brier": -0.000691
+          },
+          "linear": {
+            "helped": 5,
+            "hurt": 6,
+            "delta_brier": 0.000185
+          }
+        }
+      },
+      {
+        "month": "2026-02",
+        "training_rounds": 3829,
+        "rounds": 2624,
+        "utc_days": 28,
+        "scores": {
+          "chart_up": {
+            "correct": 1840,
+            "brier": 0.191866
+          },
+          "linear": {
+            "correct": 1859,
+            "brier": 0.191705
+          },
+          "asinh": {
+            "correct": 1857,
+            "brier": 0.192122
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 49,
+            "hurt": 32,
+            "delta_brier": 0.000256
+          },
+          "linear": {
+            "helped": 1,
+            "hurt": 3,
+            "delta_brier": 0.000417
+          }
+        }
+      },
+      {
+        "month": "2026-03",
+        "training_rounds": 6492,
+        "rounds": 2873,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 1993,
+            "brier": 0.195224
+          },
+          "linear": {
+            "correct": 2001,
+            "brier": 0.194795
+          },
+          "asinh": {
+            "correct": 1993,
+            "brier": 0.194974
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 36,
+            "hurt": 36,
+            "delta_brier": -0.00025
+          },
+          "linear": {
+            "helped": 1,
+            "hurt": 9,
+            "delta_brier": 0.000178
+          }
+        }
+      },
+      {
+        "month": "2026-04",
+        "training_rounds": 9339,
+        "rounds": 2801,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 1954,
+            "brier": 0.190797
+          },
+          "linear": {
+            "correct": 1963,
+            "brier": 0.189231
+          },
+          "asinh": {
+            "correct": 1960,
+            "brier": 0.189486
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 56,
+            "hurt": 50,
+            "delta_brier": -0.00131
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 6,
+            "delta_brier": 0.000256
+          }
+        }
+      },
+      {
+        "month": "2026-05",
+        "training_rounds": 12149,
+        "rounds": 2862,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2023,
+            "brier": 0.192721
+          },
+          "linear": {
+            "correct": 2026,
+            "brier": 0.192349
+          },
+          "asinh": {
+            "correct": 2023,
+            "brier": 0.192477
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 40,
+            "hurt": 40,
+            "delta_brier": -0.000244
+          },
+          "linear": {
+            "helped": 11,
+            "hurt": 14,
+            "delta_brier": 0.000129
+          }
+        }
+      },
+      {
+        "month": "2026-06",
+        "training_rounds": 15009,
+        "rounds": 2811,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 1996,
+            "brier": 0.187049
+          },
+          "linear": {
+            "correct": 2018,
+            "brier": 0.186169
+          },
+          "asinh": {
+            "correct": 2012,
+            "brier": 0.186185
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 51,
+            "hurt": 35,
+            "delta_brier": -0.000864
+          },
+          "linear": {
+            "helped": 6,
+            "hurt": 12,
+            "delta_brier": 1.6e-05
+          }
+        }
+      },
+      {
+        "month": "2026-07",
+        "training_rounds": 17813,
+        "rounds": 2925,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2065,
+            "brier": 0.187312
+          },
+          "linear": {
+            "correct": 2074,
+            "brier": 0.186148
+          },
+          "asinh": {
+            "correct": 2073,
+            "brier": 0.18655
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 38,
+            "hurt": 30,
+            "delta_brier": -0.000763
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 4,
+            "delta_brier": 0.000402
+          }
+        }
+      },
+      {
+        "month": "2026-08",
+        "training_rounds": 20734,
+        "rounds": 2938,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2085,
+            "brier": 0.19063
+          },
+          "linear": {
+            "correct": 2092,
+            "brier": 0.189934
+          },
+          "asinh": {
+            "correct": 2090,
+            "brier": 0.190025
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 44,
+            "hurt": 39,
+            "delta_brier": -0.000605
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 5,
+            "delta_brier": 9.1e-05
+          }
+        }
+      },
+      {
+        "month": "2026-09",
+        "training_rounds": 23671,
+        "rounds": 2848,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2005,
+            "brier": 0.191719
+          },
+          "linear": {
+            "correct": 2015,
+            "brier": 0.191816
+          },
+          "asinh": {
+            "correct": 2011,
+            "brier": 0.19203
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 39,
+            "hurt": 33,
+            "delta_brier": 0.000311
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 7,
+            "delta_brier": 0.000214
+          }
+        }
+      },
+      {
+        "month": "2026-10",
+        "training_rounds": 26519,
+        "rounds": 2928,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2079,
+            "brier": 0.191469
+          },
+          "linear": {
+            "correct": 2080,
+            "brier": 0.191989
+          },
+          "asinh": {
+            "correct": 2078,
+            "brier": 0.192134
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 50,
+            "hurt": 51,
+            "delta_brier": 0.000666
+          },
+          "linear": {
+            "helped": 5,
+            "hurt": 7,
+            "delta_brier": 0.000145
+          }
+        }
+      },
+      {
+        "month": "2026-11",
+        "training_rounds": 29451,
+        "rounds": 1503,
+        "utc_days": 16,
+        "scores": {
+          "chart_up": {
+            "correct": 1072,
+            "brier": 0.187892
+          },
+          "linear": {
+            "correct": 1065,
+            "brier": 0.188491
+          },
+          "asinh": {
+            "correct": 1065,
+            "brier": 0.188959
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 21,
+            "hurt": 28,
+            "delta_brier": 0.001066
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 3,
+            "delta_brier": 0.000467
+          }
+        }
+      }
+    ],
+    "8": [
+      {
+        "month": "2026-01",
+        "training_rounds": 1060,
+        "rounds": 2939,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2283,
+            "brier": 0.157465
+          },
+          "linear": {
+            "correct": 2291,
+            "brier": 0.155155
+          },
+          "asinh": {
+            "correct": 2292,
+            "brier": 0.15502
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 33,
+            "hurt": 24,
+            "delta_brier": -0.002445
+          },
+          "linear": {
+            "helped": 5,
+            "hurt": 4,
+            "delta_brier": -0.000135
+          }
+        }
+      },
+      {
+        "month": "2026-02",
+        "training_rounds": 3829,
+        "rounds": 2623,
+        "utc_days": 28,
+        "scores": {
+          "chart_up": {
+            "correct": 1952,
+            "brier": 0.166419
+          },
+          "linear": {
+            "correct": 1959,
+            "brier": 0.166082
+          },
+          "asinh": {
+            "correct": 1956,
+            "brier": 0.166928
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 38,
+            "hurt": 34,
+            "delta_brier": 0.00051
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 6,
+            "delta_brier": 0.000846
+          }
+        }
+      },
+      {
+        "month": "2026-03",
+        "training_rounds": 6491,
+        "rounds": 2872,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2173,
+            "brier": 0.163983
+          },
+          "linear": {
+            "correct": 2174,
+            "brier": 0.162929
+          },
+          "asinh": {
+            "correct": 2172,
+            "brier": 0.162903
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 40,
+            "hurt": 41,
+            "delta_brier": -0.001079
+          },
+          "linear": {
+            "helped": 8,
+            "hurt": 10,
+            "delta_brier": -2.6e-05
+          }
+        }
+      },
+      {
+        "month": "2026-04",
+        "training_rounds": 9337,
+        "rounds": 2801,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2151,
+            "brier": 0.161708
+          },
+          "linear": {
+            "correct": 2153,
+            "brier": 0.160023
+          },
+          "asinh": {
+            "correct": 2154,
+            "brier": 0.159944
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 40,
+            "hurt": 37,
+            "delta_brier": -0.001764
+          },
+          "linear": {
+            "helped": 4,
+            "hurt": 3,
+            "delta_brier": -7.9e-05
+          }
+        }
+      },
+      {
+        "month": "2026-05",
+        "training_rounds": 12147,
+        "rounds": 2862,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2154,
+            "brier": 0.168504
+          },
+          "linear": {
+            "correct": 2169,
+            "brier": 0.167947
+          },
+          "asinh": {
+            "correct": 2163,
+            "brier": 0.168065
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 51,
+            "hurt": 42,
+            "delta_brier": -0.000439
+          },
+          "linear": {
+            "helped": 5,
+            "hurt": 11,
+            "delta_brier": 0.000118
+          }
+        }
+      },
+      {
+        "month": "2026-06",
+        "training_rounds": 15007,
+        "rounds": 2811,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2188,
+            "brier": 0.153283
+          },
+          "linear": {
+            "correct": 2192,
+            "brier": 0.1513
+          },
+          "asinh": {
+            "correct": 2195,
+            "brier": 0.151315
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 28,
+            "hurt": 21,
+            "delta_brier": -0.001967
+          },
+          "linear": {
+            "helped": 6,
+            "hurt": 3,
+            "delta_brier": 1.6e-05
+          }
+        }
+      },
+      {
+        "month": "2026-07",
+        "training_rounds": 17811,
+        "rounds": 2925,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2211,
+            "brier": 0.162649
+          },
+          "linear": {
+            "correct": 2218,
+            "brier": 0.160871
+          },
+          "asinh": {
+            "correct": 2219,
+            "brier": 0.161004
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 41,
+            "hurt": 33,
+            "delta_brier": -0.001645
+          },
+          "linear": {
+            "helped": 7,
+            "hurt": 6,
+            "delta_brier": 0.000133
+          }
+        }
+      },
+      {
+        "month": "2026-08",
+        "training_rounds": 20732,
+        "rounds": 2938,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2248,
+            "brier": 0.163919
+          },
+          "linear": {
+            "correct": 2252,
+            "brier": 0.162137
+          },
+          "asinh": {
+            "correct": 2255,
+            "brier": 0.161888
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 42,
+            "hurt": 35,
+            "delta_brier": -0.002031
+          },
+          "linear": {
+            "helped": 7,
+            "hurt": 4,
+            "delta_brier": -0.000249
+          }
+        }
+      },
+      {
+        "month": "2026-09",
+        "training_rounds": 23669,
+        "rounds": 2848,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2136,
+            "brier": 0.167064
+          },
+          "linear": {
+            "correct": 2141,
+            "brier": 0.166669
+          },
+          "asinh": {
+            "correct": 2140,
+            "brier": 0.166961
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 47,
+            "hurt": 43,
+            "delta_brier": -0.000103
+          },
+          "linear": {
+            "helped": 4,
+            "hurt": 5,
+            "delta_brier": 0.000292
+          }
+        }
+      },
+      {
+        "month": "2026-10",
+        "training_rounds": 26517,
+        "rounds": 2928,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2200,
+            "brier": 0.168726
+          },
+          "linear": {
+            "correct": 2189,
+            "brier": 0.169212
+          },
+          "asinh": {
+            "correct": 2192,
+            "brier": 0.169408
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 42,
+            "hurt": 50,
+            "delta_brier": 0.000682
+          },
+          "linear": {
+            "helped": 5,
+            "hurt": 2,
+            "delta_brier": 0.000197
+          }
+        }
+      },
+      {
+        "month": "2026-11",
+        "training_rounds": 29449,
+        "rounds": 1503,
+        "utc_days": 16,
+        "scores": {
+          "chart_up": {
+            "correct": 1119,
+            "brier": 0.166507
+          },
+          "linear": {
+            "correct": 1110,
+            "brier": 0.167001
+          },
+          "asinh": {
+            "correct": 1111,
+            "brier": 0.16815
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 17,
+            "hurt": 25,
+            "delta_brier": 0.001643
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 2,
+            "delta_brier": 0.001149
+          }
+        }
+      }
+    ],
+    "6": [
+      {
+        "month": "2026-01",
+        "training_rounds": 1060,
+        "rounds": 2939,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2400,
+            "brier": 0.131966
+          },
+          "linear": {
+            "correct": 2388,
+            "brier": 0.12996
+          },
+          "asinh": {
+            "correct": 2392,
+            "brier": 0.130206
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 35,
+            "hurt": 43,
+            "delta_brier": -0.00176
+          },
+          "linear": {
+            "helped": 6,
+            "hurt": 2,
+            "delta_brier": 0.000246
+          }
+        }
+      },
+      {
+        "month": "2026-02",
+        "training_rounds": 3829,
+        "rounds": 2618,
+        "utc_days": 28,
+        "scores": {
+          "chart_up": {
+            "correct": 2109,
+            "brier": 0.138375
+          },
+          "linear": {
+            "correct": 2103,
+            "brier": 0.138305
+          },
+          "asinh": {
+            "correct": 2105,
+            "brier": 0.138809
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 19,
+            "hurt": 23,
+            "delta_brier": 0.000434
+          },
+          "linear": {
+            "helped": 2,
+            "hurt": 0,
+            "delta_brier": 0.000504
+          }
+        }
+      },
+      {
+        "month": "2026-03",
+        "training_rounds": 6490,
+        "rounds": 2874,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2314,
+            "brier": 0.136147
+          },
+          "linear": {
+            "correct": 2316,
+            "brier": 0.1344
+          },
+          "asinh": {
+            "correct": 2321,
+            "brier": 0.134491
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 33,
+            "hurt": 26,
+            "delta_brier": -0.001656
+          },
+          "linear": {
+            "helped": 6,
+            "hurt": 1,
+            "delta_brier": 9.1e-05
+          }
+        }
+      },
+      {
+        "month": "2026-04",
+        "training_rounds": 9334,
+        "rounds": 2801,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2251,
+            "brier": 0.138495
+          },
+          "linear": {
+            "correct": 2270,
+            "brier": 0.136634
+          },
+          "asinh": {
+            "correct": 2268,
+            "brier": 0.136773
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 37,
+            "hurt": 20,
+            "delta_brier": -0.001722
+          },
+          "linear": {
+            "helped": 2,
+            "hurt": 4,
+            "delta_brier": 0.000139
+          }
+        }
+      },
+      {
+        "month": "2026-05",
+        "training_rounds": 12144,
+        "rounds": 2860,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2319,
+            "brier": 0.134406
+          },
+          "linear": {
+            "correct": 2317,
+            "brier": 0.13272
+          },
+          "asinh": {
+            "correct": 2324,
+            "brier": 0.132546
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 41,
+            "hurt": 36,
+            "delta_brier": -0.00186
+          },
+          "linear": {
+            "helped": 12,
+            "hurt": 5,
+            "delta_brier": -0.000173
+          }
+        }
+      },
+      {
+        "month": "2026-06",
+        "training_rounds": 15003,
+        "rounds": 2812,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2318,
+            "brier": 0.128386
+          },
+          "linear": {
+            "correct": 2308,
+            "brier": 0.125871
+          },
+          "asinh": {
+            "correct": 2312,
+            "brier": 0.125852
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 13,
+            "hurt": 19,
+            "delta_brier": -0.002534
+          },
+          "linear": {
+            "helped": 6,
+            "hurt": 2,
+            "delta_brier": -1.9e-05
+          }
+        }
+      },
+      {
+        "month": "2026-07",
+        "training_rounds": 17807,
+        "rounds": 2924,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2351,
+            "brier": 0.13518
+          },
+          "linear": {
+            "correct": 2370,
+            "brier": 0.132406
+          },
+          "asinh": {
+            "correct": 2365,
+            "brier": 0.132535
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 35,
+            "hurt": 21,
+            "delta_brier": -0.002645
+          },
+          "linear": {
+            "helped": 4,
+            "hurt": 9,
+            "delta_brier": 0.000129
+          }
+        }
+      },
+      {
+        "month": "2026-08",
+        "training_rounds": 20727,
+        "rounds": 2938,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2360,
+            "brier": 0.139246
+          },
+          "linear": {
+            "correct": 2368,
+            "brier": 0.136522
+          },
+          "asinh": {
+            "correct": 2368,
+            "brier": 0.13618
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 44,
+            "hurt": 36,
+            "delta_brier": -0.003066
+          },
+          "linear": {
+            "helped": 2,
+            "hurt": 2,
+            "delta_brier": -0.000342
+          }
+        }
+      },
+      {
+        "month": "2026-09",
+        "training_rounds": 23664,
+        "rounds": 2848,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2267,
+            "brier": 0.142249
+          },
+          "linear": {
+            "correct": 2274,
+            "brier": 0.141719
+          },
+          "asinh": {
+            "correct": 2274,
+            "brier": 0.142032
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 51,
+            "hurt": 44,
+            "delta_brier": -0.000217
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 3,
+            "delta_brier": 0.000313
+          }
+        }
+      },
+      {
+        "month": "2026-10",
+        "training_rounds": 26512,
+        "rounds": 2928,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2304,
+            "brier": 0.146925
+          },
+          "linear": {
+            "correct": 2293,
+            "brier": 0.146865
+          },
+          "asinh": {
+            "correct": 2297,
+            "brier": 0.147543
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 51,
+            "hurt": 58,
+            "delta_brier": 0.000617
+          },
+          "linear": {
+            "helped": 8,
+            "hurt": 4,
+            "delta_brier": 0.000678
+          }
+        }
+      },
+      {
+        "month": "2026-11",
+        "training_rounds": 29444,
+        "rounds": 1503,
+        "utc_days": 16,
+        "scores": {
+          "chart_up": {
+            "correct": 1179,
+            "brier": 0.144966
+          },
+          "linear": {
+            "correct": 1176,
+            "brier": 0.145866
+          },
+          "asinh": {
+            "correct": 1174,
+            "brier": 0.147228
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 16,
+            "hurt": 21,
+            "delta_brier": 0.002262
+          },
+          "linear": {
+            "helped": 0,
+            "hurt": 2,
+            "delta_brier": 0.001362
+          }
+        }
+      }
+    ],
+    "4": [
+      {
+        "month": "2026-01",
+        "training_rounds": 1060,
+        "rounds": 2939,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2530,
+            "brier": 0.101488
+          },
+          "linear": {
+            "correct": 2534,
+            "brier": 0.100746
+          },
+          "asinh": {
+            "correct": 2534,
+            "brier": 0.101177
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 13,
+            "hurt": 9,
+            "delta_brier": -0.000311
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 3,
+            "delta_brier": 0.000431
+          }
+        }
+      },
+      {
+        "month": "2026-02",
+        "training_rounds": 3829,
+        "rounds": 2624,
+        "utc_days": 28,
+        "scores": {
+          "chart_up": {
+            "correct": 2242,
+            "brier": 0.103862
+          },
+          "linear": {
+            "correct": 2250,
+            "brier": 0.103891
+          },
+          "asinh": {
+            "correct": 2251,
+            "brier": 0.104002
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 25,
+            "hurt": 16,
+            "delta_brier": 0.00014
+          },
+          "linear": {
+            "helped": 2,
+            "hurt": 1,
+            "delta_brier": 0.000111
+          }
+        }
+      },
+      {
+        "month": "2026-03",
+        "training_rounds": 6493,
+        "rounds": 2874,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2465,
+            "brier": 0.100072
+          },
+          "linear": {
+            "correct": 2463,
+            "brier": 0.099388
+          },
+          "asinh": {
+            "correct": 2461,
+            "brier": 0.099677
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 16,
+            "hurt": 20,
+            "delta_brier": -0.000395
+          },
+          "linear": {
+            "helped": 1,
+            "hurt": 3,
+            "delta_brier": 0.000289
+          }
+        }
+      },
+      {
+        "month": "2026-04",
+        "training_rounds": 9340,
+        "rounds": 2801,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2389,
+            "brier": 0.09986
+          },
+          "linear": {
+            "correct": 2399,
+            "brier": 0.098578
+          },
+          "asinh": {
+            "correct": 2397,
+            "brier": 0.098915
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 24,
+            "hurt": 16,
+            "delta_brier": -0.000946
+          },
+          "linear": {
+            "helped": 0,
+            "hurt": 2,
+            "delta_brier": 0.000337
+          }
+        }
+      },
+      {
+        "month": "2026-05",
+        "training_rounds": 12150,
+        "rounds": 2861,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2480,
+            "brier": 0.096705
+          },
+          "linear": {
+            "correct": 2479,
+            "brier": 0.095895
+          },
+          "asinh": {
+            "correct": 2482,
+            "brier": 0.095578
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 23,
+            "hurt": 21,
+            "delta_brier": -0.001127
+          },
+          "linear": {
+            "helped": 9,
+            "hurt": 6,
+            "delta_brier": -0.000318
+          }
+        }
+      },
+      {
+        "month": "2026-06",
+        "training_rounds": 15010,
+        "rounds": 2811,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2442,
+            "brier": 0.095403
+          },
+          "linear": {
+            "correct": 2452,
+            "brier": 0.09424
+          },
+          "asinh": {
+            "correct": 2448,
+            "brier": 0.094428
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 27,
+            "hurt": 21,
+            "delta_brier": -0.000976
+          },
+          "linear": {
+            "helped": 2,
+            "hurt": 6,
+            "delta_brier": 0.000188
+          }
+        }
+      },
+      {
+        "month": "2026-07",
+        "training_rounds": 17814,
+        "rounds": 2925,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2513,
+            "brier": 0.099339
+          },
+          "linear": {
+            "correct": 2523,
+            "brier": 0.098379
+          },
+          "asinh": {
+            "correct": 2525,
+            "brier": 0.098526
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 31,
+            "hurt": 19,
+            "delta_brier": -0.000813
+          },
+          "linear": {
+            "helped": 7,
+            "hurt": 5,
+            "delta_brier": 0.000148
+          }
+        }
+      },
+      {
+        "month": "2026-08",
+        "training_rounds": 20734,
+        "rounds": 2938,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2488,
+            "brier": 0.110762
+          },
+          "linear": {
+            "correct": 2490,
+            "brier": 0.110212
+          },
+          "asinh": {
+            "correct": 2491,
+            "brier": 0.110496
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 26,
+            "hurt": 23,
+            "delta_brier": -0.000266
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 2,
+            "delta_brier": 0.000284
+          }
+        }
+      },
+      {
+        "month": "2026-09",
+        "training_rounds": 23671,
+        "rounds": 2848,
+        "utc_days": 30,
+        "scores": {
+          "chart_up": {
+            "correct": 2378,
+            "brier": 0.116248
+          },
+          "linear": {
+            "correct": 2381,
+            "brier": 0.116948
+          },
+          "asinh": {
+            "correct": 2380,
+            "brier": 0.117851
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 24,
+            "hurt": 22,
+            "delta_brier": 0.001603
+          },
+          "linear": {
+            "helped": 2,
+            "hurt": 3,
+            "delta_brier": 0.000903
+          }
+        }
+      },
+      {
+        "month": "2026-10",
+        "training_rounds": 26519,
+        "rounds": 2927,
+        "utc_days": 31,
+        "scores": {
+          "chart_up": {
+            "correct": 2447,
+            "brier": 0.118476
+          },
+          "linear": {
+            "correct": 2441,
+            "brier": 0.118778
+          },
+          "asinh": {
+            "correct": 2439,
+            "brier": 0.119524
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 14,
+            "hurt": 22,
+            "delta_brier": 0.001048
+          },
+          "linear": {
+            "helped": 1,
+            "hurt": 3,
+            "delta_brier": 0.000746
+          }
+        }
+      },
+      {
+        "month": "2026-11",
+        "training_rounds": 29451,
+        "rounds": 1502,
+        "utc_days": 16,
+        "scores": {
+          "chart_up": {
+            "correct": 1253,
+            "brier": 0.109104
+          },
+          "linear": {
+            "correct": 1249,
+            "brier": 0.110187
+          },
+          "asinh": {
+            "correct": 1251,
+            "brier": 0.111367
+          }
+        },
+        "asinh_minus_baseline": {
+          "chart_up": {
+            "helped": 7,
+            "hurt": 9,
+            "delta_brier": 0.002263
+          },
+          "linear": {
+            "helped": 3,
+            "hurt": 1,
+            "delta_brier": 0.00118
+          }
+        }
+      }
+    ]
+  },
+  "archive_fit": {
+    "10": {
+      "training_rounds": 31614,
+      "last_training_expiry": 1794864600,
+      "intercept_and_asinh_weights": [
+        0.04185635467778883,
+        0.9425864373662469,
+        1.1287741083040128,
+        -0.10552133986996531
+      ]
+    },
+    "8": {
+      "training_rounds": 31612,
+      "last_training_expiry": 1794864600,
+      "intercept_and_asinh_weights": [
+        0.052045659157671814,
+        1.0671280914870838,
+        1.102500113156294,
+        -0.058345041520863374
+      ]
+    },
+    "6": {
+      "training_rounds": 31607,
+      "last_training_expiry": 1794864600,
+      "intercept_and_asinh_weights": [
+        0.07170740468291521,
+        1.1768651922718045,
+        1.0864099738294066,
+        -0.03851579890984583
+      ]
+    },
+    "4": {
+      "training_rounds": 31612,
+      "last_training_expiry": 1794864600,
+      "intercept_and_asinh_weights": [
+        0.11077874897125937,
+        1.3748735563528136,
+        1.0679401529253696,
+        -0.01787869064535802
+      ]
+    }
+  }
+}

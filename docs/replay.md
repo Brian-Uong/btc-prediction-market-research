@@ -48,3 +48,50 @@ Open `round_decisions` in D1 Studio for the latest chart direction, the separate
 The capped watcher, its agreement trial and its automatic recalibration were retired from new captures. Historical rows retain their original values. Use [historical matchup](../backtest/legacy_matchup.sql) to reconstruct the old standings and [chart accuracy](../backtest/chart_accuracy.sql) for checkpoint scores. The two frozen hybrid comparisons run directly against the captured records through [hybrid review](../backtest/six-minute/hybrid_review.sql).
 
 On an existing November 17 journal, deploy the chart-only Worker first, then apply [the cleanup migration](../migrations/2026-11-17-chart-only.sql). Then apply the [round display migration](../migrations/2026-11-17-readable-rounds.sql). A journal that already has the chart-only cleanup needs only the display migration. For a new journal, use the root schema. Earlier upgrades under `migrations/historical/` document earlier versions.
+
+## November 18 chart review
+
+The live chart remains the direction displayed in `round_decisions`. This review covers 277 distinct officially settled rounds through November 18, 2026 at 11:30 p.m. Pacific. The 59 new rounds closed after the 8:45 a.m. Pacific review cutoff that day. The spot baseline predicts Up when the captured BTC price is at or above that round’s official target. Each comparison uses the same ticker and checkpoint. A lower Brier score means smaller probability errors.
+
+| Minutes left | New chart | New spot | New Brier | Cumulative chart | Cumulative spot | Cumulative Brier |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 10 | 34/58 | 35/58 | .234475 | 188/273 | 194/273 | .189229 |
+| 8 | 38/59 | 38/59 | .215701 | 206/277 | 202/277 | .166157 |
+| 6 | 49/59 | 51/59 | .166175 | 227/276 | 230/276 | .139199 |
+| 4 | 46/59 | 45/59 | .134346 | 234/277 | 233/277 | .104435 |
+
+All scheduled rows arrived. Five chart inputs were unavailable because Coinbase rate-limited the requests, including one new ten-minute observation. Every eligible expired round through the cutoff had an official outcome. The next review counts new rounds strictly after expiry 1795073400 (the 11:30 p.m. close), then advances that boundary with each review. It checks older pending rounds separately.
+
+The eight-minute ledger won 38/59 in the new sample for −$5.655 gross at recorded asks. Cumulatively it won 181/245. One losing call lacked an entry price and the 244 priced calls returned −$2.218 gross. All entries locked at eight minutes. The latest forecast scored 234/277. Among the 245 locked rounds, later updates corrected 41 misses and reversed 13 correct calls (11 and 3 in the new slice).
+
+| Frozen six-minute comparison | New results | Cumulative results |
+| --- | --- | --- |
+| Chart vs. midpoint | 49 vs. 50 correct on 59 paired rounds. Brier .166175 vs. .170641. | 185 vs. 183 correct on 220 pairs. Brier .132399 vs. .131401. One historical observation lacked chart data. |
+| Hybrid v1 | Hybrid, chart and midpoint got 50, 49 and 50 of 59 correct. Brier .169022, .166175 and .170641. | On 151 paired rounds across two Pacific days, correct counts were 123, 124 and 123. Brier was .143605, .141255 and .144348. The hybrid fixed two chart misses and reversed three correct calls. |
+| Hybrid execution | Zero qualifying immediate candidates. | No immediate or delayed entries. Net and one-cent-worse P&L were both $0. |
+| $50 filtered paper screen | Zero qualifying trades. | All 231 expected rows arrived. Two entries, both wins on the same day, earned $1.18 after modeled fees. Available $51.18, reserved $0. A one-cent worse fill leaves $1.16. |
+| $0.50 cap-only reference | One loss of $0.49. | Three wins and two losses across three Pacific days, earning $0.78 net or $0.73 at one cent worse. |
+
+### Refinements tested
+
+These tests used the November 16 archive. Each January–November test month was forecast with coefficients fitted only on rounds ending at least seven days before that month. At six minutes there were 30,045 distinct walk-forward rounds across 320 UTC days. The exact live model was originally fitted using data through November 9. The monthly linear refit provides a time-ordered comparison over the full replay. The 732 rounds after the live model's original training cutoff also allow a comparison with its fixed coefficients. All of these are historical tests.
+
+| Six-minute chart method | Walk-forward correct / 30,045 | Brier | Correct on 732 post-training rounds |
+| --- | ---: | ---: | ---: |
+| Exact live coefficients (retrospective across the full replay) | 24,172 | .137538 | 584 |
+| Ordinary monthly linear refit | 24,183 | .136052 | 585 |
+| Add the close relative to the last candle’s OHLC average | 24,177 | .136083 | 584 |
+| Add that last-candle feature and include high-low ranges in volatility | 24,169 | .135899 | 584 |
+| Apply a smoother curve to distance, opening move and momentum | 24,200 | .136266 | 584 |
+| Spot side | 24,209 | — | 586 |
+
+High-low volatility improved the six-minute Brier score by .000153 versus the ordinary refit. It corrected nine calls and reversed 23 correct ones. The smoother curve gained 17 correct calls at six minutes, but its Brier was worse than the ordinary refit at all four checkpoints. With the frozen $0.50 entry screen, the curve won 23 of 72 historical entries and lost $7.49 after modeled fees, or $8.21 at one cent worse on each entry. The ordinary refit lost $6.42 on 59 entries. The stress holds the original entries fixed and charges an extra cent per contract. These results support retaining the incumbent and continuing the existing forward comparisons.
+
+Rerun these studies against the private input directory used above. Each prints aggregate JSON.
+
+```sh
+python backtest/six-minute/chart_candle_study.py backtest/six-minute
+python backtest/six-minute/chart_curve_study.py backtest/six-minute
+```
+
+Monthly scores, paired changes, day-resampled intervals and the fixed chronological holdout are in the [candle study results](../backtest/six-minute/chart-candle-results.json) and [curve study results](../backtest/six-minute/chart-curve-results.json).
