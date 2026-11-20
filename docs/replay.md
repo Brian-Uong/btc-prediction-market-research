@@ -95,3 +95,13 @@ python backtest/six-minute/chart_curve_study.py backtest/six-minute
 ```
 
 Monthly scores, paired changes, day-resampled intervals and the fixed chronological holdout are in the [candle study results](../backtest/six-minute/chart-candle-results.json) and [curve study results](../backtest/six-minute/chart-curve-results.json).
+
+## November 20 capture reliability
+
+The review through November 20 at 8:15 a.m. Pacific found 19 newly unavailable chart observations. Four rounds closing November 19 from 1:30 to 2:15 p.m. Pacific lost all four checkpoints. Three other rounds lost their ten-minute forecast. All scheduled journal rows exist. The recorded errors include missing numeric inputs, Coinbase HTTP 429 responses and one Worker subrequest-limit error. The generic numeric-input message does not identify which source field was absent at capture time.
+
+A single scheduled invocation can attempt four checkpoints. Five attempts at three external requests per checkpoint allowed 60 fetches, above the 50-request limit. Capture now makes at most three attempts per checkpoint. A synthetic missing-candle regression exercised all four checkpoints with 36 fetches and 11 journal operations. A healthy replay made 12 fetches and 12 journal operations, including the hybrid write. Run `node backtest/capture_budget.test.mjs` to reproduce both paths. The existing 25-second eligibility deadline applies to every retry.
+
+The settled sample contains 396 distinct rounds, including 91 new rounds after the November 19 8:30 a.m. cutoff. Chart correct counts at 10/8/6/4 minutes are 268/389, 295/396, 319/395 and 335/396. Brier scores are .192805, .164976, .137770 and .105567. Locked paper entries returned −$4.608 gross across 361 priced entries. The frozen $50 experiment remains at $51.18 after two winning entries on one day. Hybrid v1 scored 213/270 versus 216/270 for the chart and produced zero qualifying entries. The evidence supports retaining the incumbent and continuing the prospective comparisons.
+
+The next review starts its new sample after expiry 1795191300 and advances from the latest verified cutoff thereafter. Check older pending settlements separately.

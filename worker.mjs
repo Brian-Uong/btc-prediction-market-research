@@ -102,7 +102,9 @@ async function capture(at,left,env) {
     "VALUES(?,?,?,?,?,'Not recorded',0,?,?,?,?,?,?,?,?,?,?,?,?)"
   );
   let reason='Scheduler arrived outside the 25-second checkpoint';
-  for(let attempt=0;attempt<5 && now()<=at+25;attempt++){
+  // Four checkpoints can share an invocation. Three attempts cap external
+  // requests at 36, leaving room for journal reads and writes under the 50-request limit.
+  for(let attempt=0;attempt<3 && now()<=at+25;attempt++){
     try{
       const [listed,bars]=await Promise.all([
         data(KALSHI,{series_ticker:'KXBTC15M',status:'open',limit:10}),
