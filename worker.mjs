@@ -146,7 +146,13 @@ async function capture(at,left,env) {
       }
       await env.DB.batch(writes);
       return;
-    }catch(e){ reason=String(e.message).slice(0,180); if(now()<at+24) await sleep(650); }
+    }catch(e){
+      reason=String(e.message).slice(0,180);
+      // Spread retries across the checkpoint window so a short rate limit can clear.
+      if(attempt<2 && now()<at+24) {
+        await sleep(Math.max(650,(at+(attempt+1)*8-now())*1000));
+      }
+    }
   }
   const capturedAt=new Date().toISOString();
   await env.DB.prepare(
